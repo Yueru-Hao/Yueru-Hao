@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>揉面团子</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <style>
+        #canvas1{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgb(200,255,200);
+        }
+        /* 设置大字样式 */
+        #canvas2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 10rem; /* 这里设置字体大小 */
+            font-weight: bold;
+            text-align: center;
+        }
+        #canvas3{
+            position:absolute;
+            top:0;
+            left:0;
+            width:100%;
+            height:100%;
+            background:rgb(200,255,200);
+        }
+        /* 设置页面居中对齐 */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+    </style>
+</head>
+<body>
+    <canvas id="canvas1"></canvas>
+    <canvas id="canvas2"></canvas>
+    <!-- <canvas id="canvas3"></canvas> -->
+<script>
+    //画布1（揉面团子）
+    const canvas1 = document.getElementById('canvas1');
+    const ctx = canvas1.getContext("2d");
+    canvas1.width = window.innerWidth;
+    canvas1.height = window.innerHeight;
+
+    let posX = canvas1.width / 2;
+    let posY = canvas1.height / 2;
+    let size = 10;
+    let angle = 0;
+    let number = 0;
+    function animate() {
+        //draw each frame
+        size += 0.3;
+        posX += 15 * Math.sin(angle);
+        posY += 15 * Math.cos(angle);
+        angle++;
+        ctx.fillStyle = 'rgb(180,255,180)';
+        ctx.strokeStyle = 'rgb(120,225,120)';
+        ctx.beginPath();
+        ctx.lineWidth = 5;
+        ctx.arc(posX, posY, size, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
+        number++;
+        if (number > 1000) return;
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    //画布2（“嘎嘎嘎”）
+    var canvas2 = document.getElementById("canvas2");
+    var ctx2 = canvas2.getContext("2d");
+    canvas2.width = window.innerWidth;
+    canvas2.height = window.innerHeight;
+    ctx2.font = "4rem Arial";
+    ctx2.fillStyle = "black";
+    ctx2.textAlign = "center";
+
+    setTimeout(function() {
+    ctx2.fillText("嘎嘎嘎.", canvas2.width/2, canvas2.height/2);
+    }, 13000); // 显示画布2
+    /*
+    setTimeout(function() {
+        ctx.clearRect(0, 0, canvas1.width, canvas1.height);
+     }, 8000); // 清空画布1
+     setTimeout(function() {
+        ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
+     }, 8000); //清空画布2*/
+
+     //画布3（彩虹花）
+     
+    const canvas3 = document.getElementById('canvas3');
+    const ctx3 = canvas3.getContext("2d");
+    canvas3.width = window.innerWidth;
+    canvas3.height = window.innerHeight;
+    posX = canvas3.width / 2;
+    posY = canvas3.height / 2;
+    size = 10;
+    angle = 0;
+    number = 0;
+    color=0;
+    plusColor=1;
+    function animate3() {
+        color+=plusColor;
+        size += 0.3;
+        posX += 15 * Math.sin(angle);
+        posY += 15 * Math.cos(angle);
+        angle++;
+        ctx3.fillStyle = `hsl(${color},100%,70%)`;
+        ctx3.strokeStyle = `hsl(${color},50%,50%)`;
+        ctx3.beginPath();
+        ctx3.lineWidth = 5;
+        ctx3.arc(posX, posY, size, 0, Math.PI * 2);
+        ctx3.closePath();
+        ctx3.fill();
+        ctx3.stroke();
+        number++;
+        if (number > 100) return;
+        requestAnimationFrame(animate3);
+      }
+      
+      //setTimeout(animate3,8000);
+      animate3();
+</script>
+</body>
+</html> 
